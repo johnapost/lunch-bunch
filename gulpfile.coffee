@@ -7,17 +7,14 @@ config = require './gulp/config.coffee'
 gulp.task 'del', ->
   del config.path, force: true
 
-# # Move static files into dist
-# require './gulp/static.coffee'
-
 # Process SASS
 require './gulp/sass.coffee'
 
 # # Process CoffeeScript
 # require './gulp/coffee.coffee'
 
-# # Process Jade
-# require './gulp/jade.coffee'
+# Process Jade
+require './gulp/jade.coffee'
 
 # # Process images
 # require './gulp/images.coffee'
@@ -57,7 +54,7 @@ require './gulp/sass.coffee'
 
 gulp.task 'default', [
   # 'vendor'
-  # 'jade'
+  'jade'
   'sass'
   # 'grid'
   # 'mock_feeds'
