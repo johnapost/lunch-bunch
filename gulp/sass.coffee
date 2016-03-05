@@ -21,7 +21,7 @@ errorAlert = (error) ->
   console.log error.toString()
   this.emit 'end'
 
-masterPath = 'src/brand/master.scss'
+masterPath = 'src/app.scss'
 
 gulp.task 'sass', ->
   master = gulp.src masterPath

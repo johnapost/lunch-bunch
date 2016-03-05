@@ -19,19 +19,11 @@ require './gulp/jade.coffee'
 # # Process images
 # require './gulp/images.coffee'
 
-# # Server
-# require './gulp/server.coffee'
+# Server
+require './gulp/server.coffee'
 
 # # Tests
 # require './gulp/test.coffee'
-
-# # Prepares production-ready files
-# gulp.task 'production', [
-#   'sassProduction'
-#   'coffeeProduction'
-#   'jadeProduction'
-#   'imagesProduction'
-# ]
 
 # # Karma TDD
 # gulp.task 'tdd', [
@@ -41,26 +33,18 @@ require './gulp/jade.coffee'
 
 # # For one-time builds to CI systems
 # gulp.task 'ci', [
-#   'vendor'
 #   'jade'
 #   'sass'
-#   'grid'
-#   'mock_feeds'
 #   'coffee'
-#   'fonts'
 #   'images'
 #   'e2e'
 # ]
 
 gulp.task 'default', [
-  # 'vendor'
   'jade'
   'sass'
-  # 'grid'
-  # 'mock_feeds'
   # 'coffee'
-  # 'fonts'
   # 'images'
-  # 'serve'
+  'serve'
 ], ->
   config.watching = true
