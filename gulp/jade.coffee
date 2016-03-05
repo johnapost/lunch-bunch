@@ -35,7 +35,7 @@ gulp.task 'jade', ->
       /views\//.test file.path
 
     .pipe jade()
-    .pipe chmod 755
+    .pipe chmod(755)
 
     .pipe rename (file) ->
       file.dirname = file.dirname.replace('views', '')

@@ -32,7 +32,7 @@ gulp.task 'sass', ->
     .pipe prefix(browsers: ['> 1%', 'last 2 versions', 'ff ESR', 'ie >= 11'])
     .pipe csso()
     .pipe rename('styles.css')
-    .pipe chmod 755
+    .pipe chmod(755)
 
     .pipe sourcemaps.write()
     .pipe gulp.dest("#{config.path}/styles")
