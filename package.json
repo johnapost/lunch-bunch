@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "Yelp Hackathon contest entry",
   "main": "app.ts",
-  "scripts": {
-    "test": "npm test"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/johnapost/yelp-project.git"
