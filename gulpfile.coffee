@@ -7,6 +7,9 @@ config = require './gulp/config.coffee'
 gulp.task 'del', ->
   del config.path, force: true
 
+# Process Vendor files
+require './gulp/vendor.coffee'
+
 # Process SASS
 require './gulp/sass.coffee'
 
@@ -33,17 +36,20 @@ require './gulp/server.coffee'
 
 # For one-time builds to CI systems
 gulp.task 'ci', [
+  'vendor'
+  'tsProduction'
   'jade'
   'sass'
-  'ts'
   'images'
   # 'e2e'
 ]
 
 gulp.task 'default', [
+  'vendor'
+  'ts'
+  'tslint'
   'jade'
   'sass'
-  'ts'
   'images'
   'serve'
 ], ->
