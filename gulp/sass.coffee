@@ -19,7 +19,7 @@ errorAlert = (error) ->
     message: 'Check your terminal!'
   )(error)
   console.log error.toString()
-  this.emit 'end'
+  @.emit 'end'
 
 masterPath = 'src/app.scss'
 
