@@ -6,7 +6,6 @@ config = require './config.coffee'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 source = require 'vinyl-source-stream'
-sourcemaps = require 'gulp-sourcemaps'
 tsify = require 'tsify'
 watchify = require 'watchify'
 
@@ -14,9 +13,7 @@ bundle = ->
   b.bundle()
     .pipe source('app.js')
     .pipe buffer()
-    .pipe sourcemaps.init(loadMaps: true)
-    .pipe sourcemaps.write('./')
-    .pipe gulp.dest(config.path)
+    .pipe gulp.dest("#{config.path}/scripts")
     .pipe browserSync.stream(once: true)
 
 gulp.task 'ts', bundle
