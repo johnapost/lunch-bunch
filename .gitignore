@@ -2,5 +2,7 @@
 bower_components
 coverage
 dist
+gulpfile.js
 node_modules
 npm-debug.log
+typings

@@ -1,0 +1,15 @@
+engines:
+  coffeelint:
+    enabled: true
+    config: coffeelint.json
+  tslint:
+    enabled: true
+  scss-lint:
+    enabled: true
+ratings:
+  paths:
+  - "**.ts"
+  - "**.coffee"
+  - "**.scss"
+exclude_paths:
+- vendor/**/*

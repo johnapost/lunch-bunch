@@ -1,0 +1,13 @@
+gulp = require 'gulp'
+changed = require 'gulp-changed'
+chmod = require 'gulp-chmod'
+imagemin = require 'gulp-imagemin'
+config = require './config.coffee'
+
+gulp.task 'images', ->
+  gulp.src 'src/images/**/*'
+    .pipe changed("#{config.path}/images")
+    .pipe chmod(755)
+    .pipe gulp.dest("#{config.path}/images")
+
+module.exports = gulp
