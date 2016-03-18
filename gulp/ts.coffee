@@ -11,13 +11,6 @@ tslint = require 'gulp-tslint'
 watchify = require 'watchify'
 
 dev = ->
-  d =
-    watchify browserify('./src/app.ts', debug: true)
-    .on 'update', dev
-    .on 'log', gutil.log
-    .plugin tsify
-    .transform babelify
-
   d.bundle()
     .pipe source('app.js')
     .pipe buffer()
@@ -25,14 +18,20 @@ dev = ->
     .pipe browserSync.stream(once: true)
 
 prod = ->
-  p = browserify('./src/app.ts', debug: true)
-    .plugin tsify
-    .transform babelify
-
   p.bundle()
     .pipe source('app.js')
     .pipe buffer()
     .pipe gulp.dest("#{config.path}/scripts")
+
+d = watchify browserify('./src/app.ts', debug: true)
+d.on 'update', dev
+  .on 'log', gutil.log
+  .plugin tsify
+  .transform babelify
+
+p = browserify('./src/app.ts', debug: true)
+p.plugin tsify
+  .transform babelify
 
 gulp.task 'ts', dev
 gulp.task 'tsProduction', prod

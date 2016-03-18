@@ -49,6 +49,7 @@
     "jquery": "^2.2.1",
     "reflect-metadata": "0.1.2",
     "retyped-hammerjs-tsd-ambient": "^2.0.4-0",
+    "retyped-jquery-tsd-ambient": "^1.10.0-0",
     "rxjs": "^5.0.0-beta.2",
     "tsify": "^0.13.2",
     "tslint": "^3.5.0",

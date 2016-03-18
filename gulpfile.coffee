@@ -40,6 +40,7 @@ gulp.task 'ci', [
   'tsProduction'
   'jade'
   'sass'
+  'sassComponents'
   'images'
   # 'e2e'
 ]
@@ -50,6 +51,7 @@ gulp.task 'default', [
   'tslint'
   'jade'
   'sass'
+  'sassComponents'
   'images'
   'serve'
 ], ->

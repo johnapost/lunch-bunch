@@ -31,8 +31,6 @@ gulp.task 'jade', ->
       inheritance(basedir: 'src')
     )
     .pipe debug(title: 'changed')
-    .pipe filter (file) ->
-      /views\//.test file.path
 
     .pipe jade()
     .pipe chmod(755)

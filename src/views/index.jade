@@ -1,4 +1,9 @@
-extends ../partials/_layout.jade
+doctype html
+html
+  include ../partials/_head.jade
 
-block content
-  h1 App not booted
+  body
+    app
+      card-stack
+
+    script(type='text/javascript' src='/scripts/app.js')
