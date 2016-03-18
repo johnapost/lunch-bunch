@@ -11,8 +11,8 @@ gulp.task 'serve', ['sass'], ->
     ghostMode: true
     notify: false
 
-  gulp.watch 'src/**/*.scss', ['sass', 'scssLint']
   gulp.watch 'src/**/*.ts', ['tslint']
+  gulp.watch 'src/**/*.scss', ['sass', 'scssLint']
   gulp.watch 'src/**/*.jade', ['jade', browserSync.reload]
 
 module.exports = gulp
