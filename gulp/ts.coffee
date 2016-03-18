@@ -10,33 +10,46 @@ tsify = require 'tsify'
 tslint = require 'gulp-tslint'
 watchify = require 'watchify'
 
-dev = ->
-  d.bundle()
+client = ->
+  c.bundle()
     .pipe source('app.js')
     .pipe buffer()
     .pipe gulp.dest("#{config.path}/scripts")
     .pipe browserSync.stream(once: true)
 
-prod = ->
+clientProd = ->
   p.bundle()
     .pipe source('app.js')
     .pipe buffer()
     .pipe gulp.dest("#{config.path}/scripts")
 
-d = watchify browserify('./src/app.ts', debug: true)
-d.on 'update', dev
+transpileServer = ->
+  t.bundle()
+    .pipe source('build.js')
+    .pipe buffer()
+    .pipe gulp.dest("#{config.serverPath}")
+
+c = watchify browserify('./src/app.ts', debug: true)
+c.on 'update', client
   .on 'log', gutil.log
   .plugin tsify
   .transform babelify
 
-p = browserify('./src/app.ts', debug: true)
+p = browserify './src/app.ts'
 p.plugin tsify
   .transform babelify
 
-gulp.task 'ts', dev
-gulp.task 'tsProduction', prod
+t = watchify browserify './server/main.ts'
+t.on 'update', transpileServer
+  .on 'log', gutil.log
+  .plugin tsify
+  .transform babelify
 
-gulp.task 'tslint', ->
-  gulp.src ['src/**/*.ts']
+gulp.task 'ts', client
+gulp.task 'tsProduction', clientProd
+gulp.task 'tsTranspileServer', transpileServer
+
+gulp.task 'tsLint', ->
+  gulp.src ['src/**/*.ts', 'server/**/*.ts']
     .pipe tslint(configuration: require('../tslint.json'))
     .pipe tslint.report 'verbose'
