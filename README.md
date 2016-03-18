@@ -10,7 +10,7 @@ Download Node.JS [here](http://nodejs.org/) for your OS. NPM comes with Node.JS.
 
 Enter the following in your console when pointed at the project directory:
 
-    npm i gulp typescript tsdm -g
+    npm i gulp tsdm -g
     npm i
     tsdm r
 
