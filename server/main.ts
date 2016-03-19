@@ -1,4 +1,5 @@
 // TypeScript definitions
 /// <reference path='../typings/tsd.d.ts' />
 
-console.log('yay')
+import Yelp = require('./yelp')
+Yelp.init()

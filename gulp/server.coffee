@@ -13,6 +13,7 @@ gulp.task 'serve', ['sass'], ->
     notify: false
 
   gulp.watch ['src/**/*.ts', 'server/**/*.ts'], ['tsLint']
+  gulp.watch ['server/**/*.ts'], ['tsTranspileServer']
   gulp.watch(
     ['src/**/*.scss', '!src/components/**/*.scss'],
     ['sass', 'scssLint']
@@ -25,7 +26,8 @@ gulp.task 'serve', ['sass'], ->
 
 gulp.task 'api', ['tsTranspileServer'], ->
   nodemon
-    script: 'build/build.js'
+    script: 'build/main.js'
+    ext: 'ts'
     ignore: ['src/*', 'gulp/*', 'gulpfile.coffee', 'tests/*', 'dist/*']
 
 module.exports = gulp
