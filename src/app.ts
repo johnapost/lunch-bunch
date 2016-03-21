@@ -1,5 +1,6 @@
 // TypeScript definitions
 /// <reference path='../typings/tsd.d.ts' />
+/// <reference path='../node_modules/angular2/typings/browser.d.ts'/>
 
 // Import Angular 2 core
 import {bootstrap} from 'angular2/platform/browser'
@@ -14,7 +15,7 @@ var module: any
     CardStack
   ],
   selector: 'app',
-  template: document.getElementsByTagName('app')[0].innerHTML
+  template: (<HTMLElement>document.getElementsByTagName('app')[0]).innerHTML
 })
 class App {
 }

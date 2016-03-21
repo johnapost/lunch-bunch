@@ -18,24 +18,26 @@ client = ->
     .pipe gulp.dest("#{config.path}/scripts")
     .pipe browserSync.stream(once: true)
 
-clientProd = ->
-  p.bundle()
-    .pipe source('app.js')
-    .pipe buffer()
-    .pipe gulp.dest("#{config.path}/scripts")
-
-c = watchify browserify('./src/app.ts', debug: true)
+c = watchify browserify('./src/app.ts',
+  debug: true
+  cache: {}
+  packageCache: {}
+)
 c.on 'update', client
   .on 'log', gutil.log
   .plugin tsify
   .transform babelify
 
-p = browserify './src/app.ts'
-p.plugin tsify
-  .transform babelify
-
 gulp.task 'ts', client
-gulp.task 'tsProduction', clientProd
+
+gulp.task 'tsProduction', ->
+  browserify('./src/app.ts')
+    .plugin tsify
+    .transform babelify
+    .bundle()
+    .pipe source('app.js')
+    .pipe buffer()
+    .pipe gulp.dest("#{config.path}/scripts")
 
 gulp.task 'tsTranspileServer', ->
   gulp.src('./server/**/*.ts')
