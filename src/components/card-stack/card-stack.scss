@@ -1,3 +1,7 @@
 card {
-  font-size: 3em;
+  display: block;
+
+  + card {
+    margin-top: 10px;
+  }
 }
