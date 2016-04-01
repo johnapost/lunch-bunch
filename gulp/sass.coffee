@@ -39,6 +39,19 @@ gulp.task 'sass', ->
     .pipe filter('**/*.css')
     .pipe browserSync.reload(stream: true)
 
+gulp.task 'sassComponents', ->
+  gulp.src 'src/components/**/*.scss'
+    .pipe plumber errorHandler: errorAlert
+
+    .pipe sass(style: 'expanded')
+    .pipe prefix(browsers: ['> 1%', 'last 2 versions', 'ff ESR', 'ie >= 11'])
+    .pipe csso()
+    .pipe chmod(755)
+
+    .pipe gulp.dest("#{config.path}/components")
+    .pipe filter('**/*.css')
+    .pipe browserSync.reload(stream: true)
+
 gulp.task 'scssLint', ->
   gulp.src 'src/**/*.scss'
     .pipe cached 'scssLint'

@@ -12,6 +12,7 @@ gulp.task 'vendor', ->
     'node_modules/velocity-animate/velocity.min.js'
     'node_modules/velocity-animate/velocity.ui.min.js'
     'node_modules/es6-shim/es6-shim.js'
+    'node_modules/hammerjs/hammer.min.js'
   ]
   .pipe newer(config.path + '/scripts')
   .pipe uglify()

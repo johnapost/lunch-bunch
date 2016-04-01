@@ -6,6 +6,7 @@ config = require './gulp/config.coffee'
 # Cleans your output directory
 gulp.task 'del', ->
   del config.path, force: true
+  del config.serverPath, force: true
 
 # Process Vendor files
 require './gulp/vendor.coffee'
@@ -38,8 +39,10 @@ require './gulp/server.coffee'
 gulp.task 'ci', [
   'vendor'
   'tsProduction'
+  'tsTranspileServer'
   'jade'
   'sass'
+  'sassComponents'
   'images'
   # 'e2e'
 ]
@@ -47,10 +50,13 @@ gulp.task 'ci', [
 gulp.task 'default', [
   'vendor'
   'ts'
-  'tslint'
+  'tsLint'
+  'tsTranspileServer'
   'jade'
   'sass'
+  'sassComponents'
   'images'
+  'api'
   'serve'
 ], ->
   config.watching = true

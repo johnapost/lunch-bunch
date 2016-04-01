@@ -6,38 +6,51 @@ config = require './config.coffee'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 source = require 'vinyl-source-stream'
+ts = require 'gulp-typescript'
 tsify = require 'tsify'
 tslint = require 'gulp-tslint'
 watchify = require 'watchify'
 
-dev = ->
-  d =
-    watchify browserify('./src/app.ts', debug: true)
-    .on 'update', dev
-    .on 'log', gutil.log
-    .plugin tsify
-    .transform babelify
-
-  d.bundle()
+client = ->
+  c.bundle()
     .pipe source('app.js')
     .pipe buffer()
     .pipe gulp.dest("#{config.path}/scripts")
     .pipe browserSync.stream(once: true)
 
-prod = ->
-  p = browserify('./src/app.ts', debug: true)
+c = watchify browserify('./src/app.ts',
+  debug: true
+  cache: {}
+  packageCache: {}
+)
+c.on 'update', client
+  .on 'log', gutil.log
+  .plugin tsify
+  .transform babelify
+
+gulp.task 'ts', client
+
+gulp.task 'tsProduction', ->
+  browserify('./src/app.ts')
     .plugin tsify
     .transform babelify
-
-  p.bundle()
+    .bundle()
     .pipe source('app.js')
     .pipe buffer()
     .pipe gulp.dest("#{config.path}/scripts")
 
-gulp.task 'ts', dev
-gulp.task 'tsProduction', prod
+gulp.task 'tsTranspileServer', ->
+  gulp.src('./server/**/*.ts')
+    .pipe ts(
+      module: 'commonjs'
+      moduleResolution: 'node'
+      noImplicitAny: false,
+      removeComments: true,
+      target: 'es5'
+    )
+    .pipe gulp.dest("#{config.serverPath}")
 
-gulp.task 'tslint', ->
-  gulp.src ['src/**/*.ts']
+gulp.task 'tsLint', ->
+  gulp.src ['src/**/*.ts', 'server/**/*.ts']
     .pipe tslint(configuration: require('../tslint.json'))
     .pipe tslint.report 'verbose'
