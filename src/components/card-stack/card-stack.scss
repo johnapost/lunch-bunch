@@ -1,7 +1,7 @@
-card {
+[card] {
   display: block;
 
-  + card {
+  + [card] {
     margin-top: 10px;
   }
 }

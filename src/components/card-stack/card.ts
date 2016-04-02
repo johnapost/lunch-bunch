@@ -1,7 +1,8 @@
 import {Directive, Input, ElementRef} from 'angular2/core'
 
+// Handles touch interactions and logic
 @Directive({
-  selector: 'card'
+  selector: '[card]'
 })
 export class Card {
   element: HTMLElement

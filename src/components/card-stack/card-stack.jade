@@ -1,7 +1,9 @@
-card(*ngFor='#card of cards')
+div(*ngFor='#card of cards' card)
   md-card
     md-card-header
-      md-card-title Header Title
-      md-card-subtitle Header Subtitle
+      img(md-card-avatar src='{{card.image_url}}')
+      md-card-title {{card.name}}
+      md-card-subtitle {{card.rating}}
+
     md-card-content
-      p Swipe me!
+      p {{card.snippet_text}}
