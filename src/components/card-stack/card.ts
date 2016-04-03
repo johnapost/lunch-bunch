@@ -31,12 +31,12 @@ export class Card {
   // Sets this card's initial position in the card stack
   setPos() {
     this.element.style.zIndex = `-${this.index}`
-    this.element.style.bottom = calcBottom()
+    this.element.style.bottom = calcBottom(this.index)
     this.element.style.transform = this.calcScale()
 
     // Calculate the bottom position based on index
-    function calcBottom() {
-      var bottom = 10 * parseInt(this.index, 10) + 16
+    function calcBottom(index: string) {
+      var bottom = 10 * parseInt(index, 10) + 16
       return `${bottom}px`
     }
   }
