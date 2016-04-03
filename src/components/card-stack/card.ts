@@ -16,13 +16,8 @@ export class Card {
     // Add hammer listener to host element
     var mc = new Hammer(this.element)
 
-    mc.on('swiperight', (ev) => {
-      this.yay()
-    })
-
-    mc.on('swipeleft', (ev) => {
-      this.nay()
-    })
+    mc.on('swiperight', (ev) => this.yay())
+    mc.on('swipeleft', (ev) => this.nay())
   }
 
   yay() {
