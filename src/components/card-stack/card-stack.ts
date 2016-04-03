@@ -2,6 +2,7 @@ import {Component} from 'angular2/core'
 import {NgFor, NgStyle} from 'angular2/common'
 import {Response} from 'angular2/http'
 import {Subscription} from 'rxjs/Subscription'
+import 'rxjs/add/operator/map'
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card'
 
 import {Card} from './card'

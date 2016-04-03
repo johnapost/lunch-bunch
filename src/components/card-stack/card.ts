@@ -38,7 +38,6 @@ export class Card {
 
     function calcScale(index: string) {
       var val = 1 - parseInt(index, 10) * .04
-      console.log(val)
       return `scale(${val})`
     }
   }
