@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core'
-import {NgFor} from 'angular2/common'
+import {NgFor, NgStyle} from 'angular2/common'
 import {Response} from 'angular2/http'
 import {Subscription} from 'rxjs/Subscription'
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card'
@@ -7,7 +7,7 @@ import {MD_CARD_DIRECTIVES} from '@angular2-material/card'
 import {Card} from './card'
 import {YelpSvc} from '../../services/yelp.svc'
 
-// Handles the stack of cards that showcase the Yelp businesses
+// Container for the stack of cards that showcase the Yelp businesses
 @Component({
   directives: [NgFor, Card, MD_CARD_DIRECTIVES],
   providers: [YelpSvc],
@@ -18,6 +18,7 @@ import {YelpSvc} from '../../services/yelp.svc'
 export class CardStack {
   subscription: Subscription
   cards: Array<any>
+  height: String
 
   constructor(private yelpSvc: YelpSvc) {
 
@@ -38,5 +39,13 @@ export class CardStack {
       console.error(err)
     }
     alert('Our server is having internal issues, please try again later.')
+  }
+
+  calcHeight() {
+    return window.innerHeight - 128
+  }
+
+  ngOnInit() {
+    this.height = `${this.calcHeight()}px`
   }
 }

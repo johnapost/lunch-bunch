@@ -1,9 +1,12 @@
 [card] {
-  display: block;
+  left: 2.5%;
+  position: absolute;
+  transform-origin: 50% -50%;
+  width: 95%;
+}
 
-  + [card] {
-    margin-top: 10px;
-  }
+md-card {
+  height: 100%;
 }
 
 md-card-content {
