@@ -16,16 +16,19 @@ export class Card {
   ngOnInit() {
 
     // Add hammer listener to host element
-    var mc = new Hammer(this.element)
+    var hammer = new Hammer(this.element)
 
-    mc.on('swiperight', (ev) => this.yay())
-    mc.on('swipeleft', (ev) => this.nay())
+    // The different touch events that are supported
+    hammer.on('panright panleft', this.dragCard)
+    hammer.on('panend', this.releaseCard)
 
+    // Wrapped in this if because index is not initially set sometimes
     if (this.index) {
       this.setPos()
     }
   }
 
+  // Sets this card's initial position in the card stack
   setPos() {
     this.element.style.zIndex = `-${this.index}`
     this.element.style.bottom = calcBottom(this.index)
@@ -42,11 +45,16 @@ export class Card {
     }
   }
 
-  yay() {
-    console.log('swiped right')
+  // Card is dragged
+  dragCard(ev: HammerInput) {
+    var offset = ev.deltaX - ev.target.offsetLeft
+    ev.target.style.transition = 'none'
+    ev.target.style.transform = `translate3d(${offset}px, 0, 0)`
   }
 
-  nay() {
-    console.log('swiped left')
+  // Card is released
+  releaseCard(ev: HammerInput) {
+    ev.target.style.transition = 'all 1s'
+    ev.target.style.transform = 'translate3d(0px, 0, 0)'
   }
 }
