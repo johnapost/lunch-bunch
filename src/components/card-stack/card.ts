@@ -18,9 +18,9 @@ export class Card {
     // Add hammer listener to host element
     var hammer = new Hammer(this.element)
 
-    // The different touch events that are supported
-    hammer.on('panright panleft', this.dragCard)
-    hammer.on('panend', this.releaseCard)
+    // Register hammer touch events
+    hammer.on('panright panleft', (ev: HammerInput) => this.dragCard(ev))
+    hammer.on('panend', (ev) => this.releaseCard(ev))
 
     // Wrapped in this if because index is not initially set sometimes
     if (this.index) {
@@ -47,14 +47,14 @@ export class Card {
 
   // Card is dragged
   dragCard(ev: HammerInput) {
-    var offset = ev.deltaX - ev.target.offsetLeft
-    ev.target.style.transition = 'none'
-    ev.target.style.transform = `translate3d(${offset}px, 0, 0)`
+    var offset = ev.deltaX - this.element.offsetLeft
+    this.element.style.transition = 'none'
+    this.element.style.transform = `translate3d(${offset}px, 0, 0)`
   }
 
   // Card is released
   releaseCard(ev: HammerInput) {
-    ev.target.style.transition = 'all 1s'
-    ev.target.style.transform = 'translate3d(0px, 0, 0)'
+    this.element.style.transition = 'all 1s'
+    this.element.style.transform = 'translate3d(0px, 0, 0)'
   }
 }
