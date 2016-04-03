@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+ssh://git@github.com/johnapost/yelp-project.git"
   },
+  "scripts": {
+    "postinstall": "tsdm r"
+  },
   "author": "John Apostol",
   "license": "MIT",
   "bugs": {
@@ -61,6 +64,7 @@
     "retyped-jquery-tsd-ambient": "^1.10.0-0",
     "retyped-mime-tsd-ambient": "0.0.0-0",
     "retyped-node-tsd-ambient": "^1.5.3-0",
+    "retyped-rx-tsd-ambient": "0.0.0-0",
     "retyped-serve-static-tsd-ambient": "0.0.0-0",
     "rxjs": "^5.0.0-beta.2",
     "tsify": "^0.13.2",
