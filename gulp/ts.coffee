@@ -31,10 +31,11 @@ c.on 'update', client
 gulp.task 'ts', client
 
 gulp.task 'tsProduction', ->
-  browserify('./src/app.ts')
+  browserify './src/app.ts'
     .plugin tsify
     .transform babelify
     .bundle()
+    .on 'error', gutil.log
     .pipe source('app.js')
     .pipe buffer()
     .pipe gulp.dest("#{config.path}/scripts")

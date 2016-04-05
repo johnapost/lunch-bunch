@@ -1,2 +1,10 @@
-card(*ngFor='#card of cards')
-  | Swipe me!
+div(*ngFor='#card of cards; #index = index')
+  div(card index='{{index}}')
+    md-card([ngStyle]="{height: height}")
+      md-card-header
+        img(md-card-avatar src='{{card.image_url}}')
+        md-card-title {{card.name}}
+        md-card-subtitle: img(src='{{card.rating_img_url_small}}')
+
+      md-card-content
+        p {{card.snippet_text}}

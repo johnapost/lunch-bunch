@@ -26,6 +26,7 @@ gulp.task 'serve', ['sass'], ->
 
 gulp.task 'api', ['tsTranspileServer'], ->
   nodemon
+    watch: ['build/main.js']
     script: 'build/main.js'
     ext: 'ts'
     ignore: ['src/*', 'gulp/*', 'gulpfile.coffee', 'tests/*', 'dist/*']

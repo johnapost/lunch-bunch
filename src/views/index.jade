@@ -1,9 +1,4 @@
-doctype html
-html
-  include ../partials/_head.jade
+extends ../partials/_layout.jade
 
-  body
-    app
-      card-stack
-
-    script(type='text/javascript' src='/scripts/app.js')
+block content
+  card-stack
