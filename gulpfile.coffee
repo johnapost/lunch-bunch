@@ -40,7 +40,7 @@ gulp.task 'ci', [
   'vendor'
   'tsProduction'
   'tsTranspileServer'
-  'jade'
+  'jadeProduction'
   'sass'
   'sassComponents'
   'images'

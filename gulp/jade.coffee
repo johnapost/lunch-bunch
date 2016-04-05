@@ -39,4 +39,23 @@ gulp.task 'jade', ->
       file.dirname = file.dirname.replace('views', '')
     .pipe gulp.dest(config.path)
 
+gulp.task 'jadeProduction', ->
+  gulp.src 'src/**/*.jade'
+    .pipe plumber errorHandler: errorAlert
+    .pipe changed(config.path, extension: '.html')
+
+    .pipe cached('jade')
+    .pipe gulpif(
+      config.watching,
+      inheritance(basedir: 'src')
+    )
+    .pipe debug(title: 'changed')
+
+    .pipe jade(locals: {prod: true})
+    .pipe chmod(755)
+
+    .pipe rename (file) ->
+      file.dirname = file.dirname.replace('views', '')
+    .pipe gulp.dest(config.path)
+
 module.exports = gulp
