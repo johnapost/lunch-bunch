@@ -4,3 +4,6 @@ head
   title Lunch Bunch!
   link(rel='stylesheet' href='/styles/styles.css')
   script(type='text/javascript' src='/scripts/vendor.js')
+
+  if !prod
+    script System.import('/scripts/app.js').then(null, console.error.bind(console))

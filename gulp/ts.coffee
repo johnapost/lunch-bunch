@@ -11,24 +11,31 @@ tsify = require 'tsify'
 tslint = require 'gulp-tslint'
 watchify = require 'watchify'
 
-client = ->
-  c.bundle()
-    .pipe source('app.js')
-    .pipe buffer()
-    .pipe gulp.dest("#{config.path}/scripts")
-    .pipe browserSync.stream(once: true)
+# client = ->
+#   c.bundle()
+#     .pipe source('app.js')
+#     .pipe buffer()
+#     .pipe gulp.dest("#{config.path}/scripts")
+#     .pipe browserSync.stream(once: true)
 
-c = watchify browserify('./src/app.ts',
-  debug: true
-  cache: {}
-  packageCache: {}
-)
-c.on 'update', client
-  .on 'log', gutil.log
-  .plugin tsify
-  .transform babelify
+# c = watchify browserify('./src/app.ts',
+#   debug: true
+#   cache: {}
+#   packageCache: {}
+# )
+# c.on 'update', client
+#   .on 'log', gutil.log
+#   .plugin tsify
+#   .transform babelify
 
-gulp.task 'ts', client
+# gulp.task 'ts', client
+
+tsProject = ts.createProject('tsconfig.json')
+
+gulp.task 'ts', ->
+  res = gulp.src(['src/**/*.ts', '!src/**/*.spec.ts'])
+    .pipe(ts(tsProject))
+  res.js.pipe gulp.dest("#{config.path}/scripts")
 
 gulp.task 'tsProduction', ->
   browserify './src/app.ts'

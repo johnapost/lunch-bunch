@@ -37,7 +37,7 @@ require './gulp/server.coffee'
 
 # For one-time builds to CI systems
 gulp.task 'ci', [
-  'vendor'
+  'vendorProduction'
   'tsProduction'
   'tsTranspileServer'
   'jadeProduction'

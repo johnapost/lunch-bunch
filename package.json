@@ -67,6 +67,7 @@
     "retyped-rx-tsd-ambient": "0.0.0-0",
     "retyped-serve-static-tsd-ambient": "0.0.0-0",
     "rxjs": "^5.0.0-beta.2",
+    "systemjs": "^0.19.25",
     "tsify": "^0.13.2",
     "tslint": "^3.5.0",
     "typescript": "^1.8.7",
