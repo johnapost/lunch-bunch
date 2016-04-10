@@ -4,24 +4,21 @@ module.exports = function(config) {
     frameworks: ['browserify', 'jasmine'],
 
     files: [
-      'src/**/*.spec.js'
+      'src/**/*.spec.ts'
     ],
 
     exclude: [
     ],
 
     preprocessors: {
-      'test/init.js': ['browserify'],
-      'src/**/*.spec.js': ['browserify']
+      'src/**/*.ts': ['browserify']
     },
 
     browserify: {
-      configure: function(bundle) {
-        bundle.once('prebundle', function() {
-          bundle.plugin('tsify').transform('babelify')
-        })
-      },
-      debug: true
+      debug: true,
+      plugin: [
+        ['tsify', {target: 'es5'}]
+      ]
     },
 
     reporters: ['progress'],
