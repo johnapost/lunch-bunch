@@ -4,7 +4,7 @@ module.exports = function(config) {
     frameworks: ['browserify', 'jasmine'],
 
     files: [
-      'src/**/*.spec.ts'
+      'src/**/*.ts'
     ],
 
     exclude: [
@@ -17,7 +17,10 @@ module.exports = function(config) {
     browserify: {
       debug: true,
       plugin: [
-        ['tsify', {target: 'es5'}]
+        ['tsify']
+      ],
+      transform: [
+        ['babelify']
       ]
     },
 
