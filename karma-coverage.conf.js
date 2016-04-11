@@ -27,7 +27,7 @@ module.exports = function(config) {
     browserify: {
       debug: true,
       transform: [
-        istanbul
+        istanbul({ignore: ['**/*.spec.js']})
       ]
     },
 
@@ -39,7 +39,7 @@ module.exports = function(config) {
       }
     },
 
-    reporters: ['progress', 'coverage', 'growl'],
+    reporters: ['progress', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
