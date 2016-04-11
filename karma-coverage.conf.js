@@ -12,30 +12,40 @@ module.exports = function(config) {
       'node_modules/velocity-animate/velocity.ui.min.js',
       'node_modules/es6-shim/es6-shim.js',
       'node_modules/hammerjs/hammer.min.js',
-      'src/components/**/*.ts',
+      'temp/src/components/**/*.js',
+      'temp/src/services/**/*.js',
     ],
 
     exclude: [
     ],
 
     preprocessors: {
-      'src/components/**/*.ts': ['browserify']
+      'temp/src/components/**/*.js': ['browserify'],
+      'temp/src/services/**/*.js': ['browserify']
     },
 
     browserify: {
       debug: true,
-      plugin: [
-        ['tsify']
+      transform: [
+        istanbul
       ]
     },
 
-    reporters: ['progress', 'growl'],
+    coverageReporter: {
+      type: 'json',
+      dir: 'temp',
+      subdir: function(browser) {
+        return browser.toLowerCase().split(/[ /-]/)[0]
+      }
+    },
+
+    reporters: ['progress', 'coverage', 'growl'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Firefox'],
-    singleRun: false,
+    singleRun: true,
     concurrency: Infinity
   })
 }
