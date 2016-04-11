@@ -4,6 +4,7 @@ coverage
 dist
 gulpfile.js
 node_modules
+NOTES.md
 npm-debug.log
 typings
 build

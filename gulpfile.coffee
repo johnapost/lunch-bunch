@@ -27,13 +27,13 @@ require './gulp/images.coffee'
 require './gulp/server.coffee'
 
 # Tests
-# require './gulp/test.coffee'
+require './gulp/test.coffee'
 
 # Karma TDD
-# gulp.task 'tdd', [
-#   'default'
-#   'test'
-# ]
+gulp.task 'tdd', [
+  'default'
+  'test'
+]
 
 # For one-time builds to CI systems
 gulp.task 'ci', [
