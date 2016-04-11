@@ -1,4 +1,3 @@
-babelify = require 'babelify'
 browserify = require 'browserify'
 browserSync = require 'browser-sync'
 buffer = require 'vinyl-buffer'
@@ -26,14 +25,12 @@ c = watchify browserify('./src/app.ts',
 c.on 'update', client
   .on 'log', gutil.log
   .plugin tsify
-  .transform babelify
 
 gulp.task 'ts', client
 
 gulp.task 'tsProduction', ->
   browserify './src/app.ts'
     .plugin tsify
-    .transform babelify
     .bundle()
     .on 'error', gutil.log
     .pipe source('app.js')

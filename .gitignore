@@ -1,11 +1,12 @@
 .DS_Store
+.env
 bower_components
+build
 coverage
 dist
 gulpfile.js
 node_modules
 NOTES.md
 npm-debug.log
+temp
 typings
-build
-.env

@@ -7,6 +7,7 @@ config = require './gulp/config.coffee'
 gulp.task 'del', ->
   del config.path, force: true
   del config.serverPath, force: true
+  del config.testPath, force: true
 
 # Process Vendor files
 require './gulp/vendor.coffee'
