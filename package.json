@@ -8,7 +8,8 @@
     "url": "git+ssh://git@github.com/johnapost/yelp-project.git"
   },
   "scripts": {
-    "postinstall": "tsdm r"
+    "postinstall": "tsdm r",
+    "test": "karma start --single-run"
   },
   "author": "John Apostol",
   "license": "MIT",
@@ -61,11 +62,13 @@
     "karma": "^0.13.22",
     "karma-browserify": "^5.0.3",
     "karma-firefox-launcher": "^0.1.7",
+    "karma-growl-reporter": "^0.1.1",
     "karma-jasmine": "^0.3.8",
     "reflect-metadata": "0.1.2",
     "retyped-body-parser-tsd-ambient": "0.0.0-0",
     "retyped-express-tsd-ambient": "0.0.0-0",
     "retyped-hammerjs-tsd-ambient": "^2.0.4-0",
+    "retyped-jasmine-tsd-ambient": "^2.2.0-0",
     "retyped-jquery-tsd-ambient": "^1.10.0-0",
     "retyped-mime-tsd-ambient": "0.0.0-0",
     "retyped-node-tsd-ambient": "^1.5.3-0",
