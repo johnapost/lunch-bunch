@@ -12,6 +12,7 @@ module.exports = function(config) {
       'node_modules/velocity-animate/velocity.ui.min.js',
       'node_modules/es6-shim/es6-shim.js',
       'node_modules/hammerjs/hammer.min.js',
+      'node_modules/faker/build/build/faker.min.js',
       'src/components/**/*.ts',
     ],
 
