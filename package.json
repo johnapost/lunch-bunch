@@ -9,7 +9,7 @@
   },
   "scripts": {
     "postinstall": "tsdm r",
-    "test": "karma start --single-run"
+    "test": "karma start --single-run && gulp ci"
   },
   "author": "John Apostol",
   "license": "MIT",
