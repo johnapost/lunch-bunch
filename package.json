@@ -10,7 +10,7 @@
   "scripts": {
     "postinstall": "tsdm r",
     "test": "karma start --single-run",
-    "test-coverage": "tsc --sourceMap --outDir temp && karma start karma-coverage.conf.js && remap-istanbul -i ./temp/firefox/coverage-final.json -t lcovonly > ./coverage/firefox/lcov"
+    "test-coverage": "tsc --sourceMap --outDir temp && karma start karma-coverage.conf.js && remap-istanbul -i ./temp/firefox/coverage-final.json -t lcovonly > ./temp/lcov.info"
   },
   "author": "John Apostol",
   "license": "MIT",
