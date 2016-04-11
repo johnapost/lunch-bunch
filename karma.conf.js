@@ -4,14 +4,14 @@ module.exports = function(config) {
     frameworks: ['browserify', 'jasmine'],
 
     files: [
-      'src/**/*.ts'
+      'src/app.ts'
     ],
 
     exclude: [
     ],
 
     preprocessors: {
-      'src/**/*.ts': ['browserify']
+      'src/app.ts': ['browserify']
     },
 
     browserify: {
