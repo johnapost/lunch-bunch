@@ -12,14 +12,16 @@ module.exports = function(config) {
       'node_modules/velocity-animate/velocity.ui.min.js',
       'node_modules/es6-shim/es6-shim.js',
       'node_modules/hammerjs/hammer.min.js',
-      'temp/components/**/*.js'
+      'temp/src/components/**/*.js',
+      'temp/src/services/**/*.js',
     ],
 
     exclude: [
     ],
 
     preprocessors: {
-      'temp/components/**/*.js': ['browserify']
+      'temp/src/components/**/*.js': ['browserify'],
+      'temp/src/services/**/*.js': ['browserify']
     },
 
     browserify: {
@@ -43,7 +45,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Firefox'],
-    singleRun: true,
+    singleRun: false,
     concurrency: Infinity
   })
 }
