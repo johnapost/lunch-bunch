@@ -10,6 +10,7 @@ import {CardStack} from './components/card-stack/card-stack'
 
 var $ = jQuery
 var module: any
+let document = window.document
 
 @Component({
   directives: [

@@ -4,14 +4,20 @@ module.exports = function(config) {
     frameworks: ['browserify', 'jasmine'],
 
     files: [
-      'src/app.ts'
+      'node_modules/angular2/bundles/angular2-polyfills.js',
+      'node_modules/jquery/dist/jquery.min.js',
+      'node_modules/velocity-animate/velocity.min.js',
+      'node_modules/velocity-animate/velocity.ui.min.js',
+      'node_modules/es6-shim/es6-shim.js',
+      'node_modules/hammerjs/hammer.min.js',
+      'src/components/**/*.spec.ts'
     ],
 
     exclude: [
     ],
 
     preprocessors: {
-      'src/app.ts': ['browserify']
+      'src/components/**/*.spec.ts': ['browserify']
     },
 
     browserify: {
@@ -29,7 +35,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['PhantomJS'],
+    browsers: ['Firefox'],
     singleRun: false,
     concurrency: Infinity
   })
