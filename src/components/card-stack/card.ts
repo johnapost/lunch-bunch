@@ -20,7 +20,7 @@ export class Card {
 
     // Register hammer touch events
     hammer.on('panright panleft', (ev: HammerInput) => this.dragCard(ev))
-    hammer.on('panend', (ev) => this.releaseCard(ev))
+    hammer.on('panend', (ev) => this.releaseCard())
 
     // Wrapped in this if because index is not initially set sometimes
     if (this.index) {
@@ -52,7 +52,7 @@ export class Card {
   }
 
   // Card is released
-  releaseCard(ev: HammerInput) {
+  releaseCard() {
     this.element.style.transition = 'all 1s'
     this.element.style.transform = `
       translate3d(0px, 0, 0)
