@@ -4,9 +4,15 @@
 
 import {Card} from './card'
 import faker = require('faker')
-var card = Card.prototype
+var card
 
 describe('Card', () => {
+  beforeEach(() => {
+    let nativeElement = {addEventListener: () => {return}}
+    let element = {nativeElement: nativeElement}
+    card = new Card(element)
+  })
+
   it('constructor should set element to the native element', () => {
     let nativeElement = faker.lorem.words(1)
     let element = {nativeElement: nativeElement}
@@ -16,25 +22,39 @@ describe('Card', () => {
     expect(card.element).toEqual(nativeElement)
   })
 
-  xdescribe('ngOnInit', () => {
-    it('should add hammer listener to the host element', () => {
+  describe('ngOnInit', () => {
+    it('should register hammer touch events', () => {
+      var params = []
+      let hammer = {
+        on: (a, b) => {
+          params[0] = a
+          params[1] = b
+        }
+      }
+      spyOn(window, 'Hammer').and.returnValue(hammer)
       card.ngOnInit()
     })
 
-    it('should register hammer touch events', () => {
-
-    })
-
     it('should call setPos if index is defined', () => {
+      spyOn(card, 'setPos')
+      card.index = faker.lorem.words(1)[0]
 
+      card.ngOnInit()
+
+      expect(card.setPos).toHaveBeenCalled()
     })
 
     it('should not call setPos if index is not defined', () => {
+      spyOn(card, 'setPos')
+      card.index = ''
 
+      card.ngOnInit()
+
+      expect(card.setPos).not.toHaveBeenCalled()
     })
   })
 
-  it("setPos should set the card's initial position in the card stack", () => {
+  it('setPos should set the initial position in the card stack', () => {
     let index = faker.random.number()
     let calcBottom = `${10 * index + 16}px`
     let calcScale = faker.random.number()
