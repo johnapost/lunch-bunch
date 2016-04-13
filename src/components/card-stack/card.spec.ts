@@ -4,9 +4,15 @@
 
 import {Card} from './card'
 import faker = require('faker')
-var card = Card.prototype
+var card
 
 describe('Card', () => {
+  beforeEach(() => {
+    let nativeElement = {addEventListener: () => {return}}
+    let element = {nativeElement: nativeElement}
+    card = new Card(element)
+  })
+
   it('constructor should set element to the native element', () => {
     let nativeElement = faker.lorem.words(1)
     let element = {nativeElement: nativeElement}
@@ -16,25 +22,50 @@ describe('Card', () => {
     expect(card.element).toEqual(nativeElement)
   })
 
-  xdescribe('ngOnInit', () => {
-    it('should add hammer listener to the host element', () => {
-      card.ngOnInit()
-    })
-
+  describe('ngOnInit', () => {
     it('should register hammer touch events', () => {
+      let strParam = []
+      let index = 0
+      let ev = faker.lorem.words(1)
+      let hammer = {
+        on: (a, b) => {
+          strParam[index] = a
+          b(ev)
+          index += 1
+        }
+      }
+      spyOn(window, 'Hammer').and.returnValue(hammer)
+      spyOn(card, 'dragCard')
+      spyOn(card, 'releaseCard')
 
+      card.ngOnInit()
+
+      expect(strParam[0]).toEqual('panright panleft')
+      expect(card.dragCard).toHaveBeenCalled()
+      expect(strParam[1]).toEqual('panend')
+      expect(card.releaseCard).toHaveBeenCalled()
     })
 
     it('should call setPos if index is defined', () => {
+      spyOn(card, 'setPos')
+      card.index = faker.lorem.words(1)[0]
 
+      card.ngOnInit()
+
+      expect(card.setPos).toHaveBeenCalled()
     })
 
     it('should not call setPos if index is not defined', () => {
+      spyOn(card, 'setPos')
+      card.index = ''
 
+      card.ngOnInit()
+
+      expect(card.setPos).not.toHaveBeenCalled()
     })
   })
 
-  it("setPos should set the card's initial position in the card stack", () => {
+  it('setPos should set the initial position in the card stack', () => {
     let index = faker.random.number()
     let calcBottom = `${10 * index + 16}px`
     let calcScale = faker.random.number()
