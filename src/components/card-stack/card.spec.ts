@@ -24,15 +24,26 @@ describe('Card', () => {
 
   describe('ngOnInit', () => {
     it('should register hammer touch events', () => {
-      var params = []
+      let strParam = []
+      let index = 0
+      let ev = faker.lorem.words(1)
       let hammer = {
         on: (a, b) => {
-          params[0] = a
-          params[1] = b
+          strParam[index] = a
+          b(ev)
+          index += 1
         }
       }
       spyOn(window, 'Hammer').and.returnValue(hammer)
+      spyOn(card, 'dragCard')
+      spyOn(card, 'releaseCard')
+
       card.ngOnInit()
+
+      expect(strParam[0]).toEqual('panright panleft')
+      expect(card.dragCard).toHaveBeenCalled()
+      expect(strParam[1]).toEqual('panend')
+      expect(card.releaseCard).toHaveBeenCalled()
     })
 
     it('should call setPos if index is defined', () => {
