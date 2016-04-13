@@ -4,9 +4,20 @@
 
 import {CardStack} from './card-stack'
 import faker = require('faker')
-var cardStack = CardStack.prototype
+var cardStack
 
 describe('CardStack', () => {
+  beforeEach(() => {
+    let yelpSvc: any = {
+      getSample() {
+        return {
+          subscribe() {}
+        }
+      }
+    }
+    cardStack = new CardStack(yelpSvc)
+  })
+
   it('constructor should subscribe to Yelp data', () => {
     spyOn(cardStack, 'handleError')
     var val = {businesses: [faker.lorem.words(1)]}
