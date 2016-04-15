@@ -22,7 +22,6 @@
     "@angular2-material/card": "^2.0.0-alpha.1",
     "@angular2-material/core": "^2.0.0-alpha.1",
     "angular2": "2.0.0-beta.14",
-    "babelify": "^7.2.0",
     "body-parser": "^1.15.0",
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",

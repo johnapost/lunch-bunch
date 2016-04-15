@@ -11,7 +11,7 @@ describe('CardStack', () => {
     let yelpSvc: any = {
       getSample() {
         return {
-          subscribe() {}
+          subscribe() {return}
         }
       }
     }
