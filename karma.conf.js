@@ -1,5 +1,3 @@
-istanbul = require('browserify-istanbul')
-
 module.exports = function(config) {
   config.set({
     basePath: '',
@@ -14,13 +12,17 @@ module.exports = function(config) {
       'node_modules/hammerjs/hammer.min.js',
       'node_modules/faker/build/build/faker.min.js',
       'src/components/**/*.ts',
+      'src/directives/**/*.ts',
+      'src/services/**/*.ts'
     ],
 
     exclude: [
     ],
 
     preprocessors: {
-      'src/components/**/*.ts': ['browserify']
+      'src/components/**/*.ts': ['browserify'],
+      'src/directives/**/*.ts': ['browserify'],
+      'src/services/**/*.ts': ['browserify']
     },
 
     browserify: {

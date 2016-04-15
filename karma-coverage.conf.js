@@ -13,7 +13,8 @@ module.exports = function(config) {
       'node_modules/es6-shim/es6-shim.js',
       'node_modules/hammerjs/hammer.min.js',
       'temp/src/components/**/*.js',
-      'temp/src/services/**/*.js',
+      'temp/src/directives/**/*.js',
+      'temp/src/services/**/*.js'
     ],
 
     exclude: [
@@ -21,6 +22,7 @@ module.exports = function(config) {
 
     preprocessors: {
       'temp/src/components/**/*.js': ['browserify'],
+      'temp/src/directives/**/*.js': ['browserify'],
       'temp/src/services/**/*.js': ['browserify']
     },
 
