@@ -8,7 +8,7 @@ var card
 
 describe('Card', () => {
   beforeEach(() => {
-    let nativeElement = {addEventListener: () => {return}}
+    let nativeElement = {addEventListener() {return}}
     let element = {nativeElement: nativeElement}
     card = new Card(element)
   })
