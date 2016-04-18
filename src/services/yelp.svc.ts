@@ -10,7 +10,8 @@ export class YelpSvc {
 
     // Correct API endpoint for development
     if (window.location.host.indexOf(':') > -1) {
-      this.path = `${window.location.origin.split(':4000')[0]}:3000`
+      let port = window.location.port
+      this.path = `${window.location.origin.split(`:${port}`)[0]}:3000`
     } else {
       this.path = ''
     }
