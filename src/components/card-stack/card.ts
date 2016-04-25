@@ -20,7 +20,7 @@ export class Card {
 
     // Register hammer touch events
     hammer.on('panright panleft', (ev: HammerInput) => this.dragCard(ev))
-    hammer.on('panend', (ev) => this.releaseCard())
+    hammer.on('panend', (ev) => this.releaseCard(ev))
 
     // Wrapped in this if because index is not initially set sometimes
     if (this.index) {
@@ -52,12 +52,26 @@ export class Card {
   }
 
   // Card is released
-  releaseCard() {
+  releaseCard(ev: HammerInput) {
     this.element.style.transition = 'all 1s'
-    this.element.style.transform = `
-      translate3d(0px, 0, 0)
-      ${this.calcScale()}
-    `
+    this.element.style.transform = `translate3d(0px, 0, 0) ${this.calcScale()}`
+
+    // Use delta to decide if card is yay'd or nay'd
+    if (ev.deltaX >= window.innerWidth / 3) {
+      this.yay()
+    } else if (ev.deltaX <= -window.innerWidth / 3) {
+      this.nay()
+    }
+  }
+
+  // The user likes this place
+  yay() {
+    console.log('yay')
+  }
+
+  // The user dislikes this place
+  nay() {
+    console.log('nay')
   }
 
   // Calculate the 3d scale based on index

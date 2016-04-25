@@ -8,7 +8,10 @@ var card
 
 describe('Card', () => {
   beforeEach(() => {
-    let nativeElement = {addEventListener() {return}}
+    let nativeElement = {
+      addEventListener() {return},
+      style: {transition: '', transform: ''}
+    }
     let element = {nativeElement: nativeElement}
     card = new Card(element)
   })
@@ -106,19 +109,37 @@ describe('Card', () => {
     `)
   })
 
-  it('releaseCard should set element style properties', () => {
-    let calcScale = faker.random.number()
-    let element = {nativeElement: {style: {transition: '', transform: ''}}}
-    spyOn(card, 'calcScale').and.returnValue(calcScale)
+  describe('releaseCard', () => {
+    it('should set element style properties', () => {
+      let calcScale = faker.random.number()
+      let ev = {deltaX: 0}
+      spyOn(card, 'calcScale').and.returnValue(calcScale)
 
-    card.constructor(element)
-    card.releaseCard()
+      card.releaseCard(ev)
 
-    expect(card.element.style.transition).toEqual('all 1s')
-    expect(card.element.style.transform).toEqual(`
-      translate3d(0px, 0, 0)
-      ${calcScale}
-    `)
+      expect(card.element.style.transition).toEqual('all 1s')
+      expect(card.element.style.transform).toEqual(
+        `translate3d(0px, 0, 0) ${calcScale}`
+      )
+    })
+
+    it('should call yay if the user likes this place', () => {
+      spyOn(card, 'yay')
+      let ev = {deltaX: window.innerWidth / 3}
+
+      card.releaseCard(ev)
+
+      expect(card.yay).toHaveBeenCalled()
+    })
+
+    it('should call nay if the user dislikes this place', () => {
+      spyOn(card, 'nay')
+      let ev = {deltaX: -window.innerWidth / 3}
+
+      card.releaseCard(ev)
+
+      expect(card.nay).toHaveBeenCalled()
+    })
   })
 
   it('calcScale should calculate the 3d scale based on index', () => {
