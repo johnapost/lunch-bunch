@@ -129,7 +129,7 @@ describe('Card', () => {
 
       card.releaseCard(ev)
 
-      expect(card.yay).toHaveBeenCalled()
+      expect(card.yay).toHaveBeenCalledWith(ev)
     })
 
     it('should call nay if the user dislikes this place', () => {
@@ -138,7 +138,77 @@ describe('Card', () => {
 
       card.releaseCard(ev)
 
-      expect(card.nay).toHaveBeenCalled()
+      expect(card.nay).toHaveBeenCalledWith(ev)
+    })
+  })
+
+  describe('removeCard', () => {
+    var calcScale
+
+    beforeEach(() => {
+      calcScale = faker.random.number()
+      spyOn(card, 'calcScale').and.returnValue(calcScale)
+    })
+
+    it('should animate out', () => {
+      let ev = {velocityX: faker.random.number()}
+      let endpoint = window.innerWidth * ev.velocityX
+      let rotation = 30 * ev.velocityX
+
+      card.removeCard(ev)
+
+      expect(card.element.style.transform).toEqual(
+        `translate3d(${endpoint}px, 0, 0)` +
+        `rotate(${rotation}deg)` +
+        `${calcScale}`
+      )
+    })
+
+    it('should animate to the window edge at minimum', () => {
+      let ev = {velocityX: 1 / faker.random.number()}
+      let endpoint = window.innerWidth
+      let rotation = 30 * ev.velocityX
+
+      card.removeCard(ev)
+
+      expect(card.element.style.transform).toEqual(
+        `translate3d(${endpoint}px, 0, 0)` +
+        `rotate(${rotation}deg)` +
+        `${calcScale}`
+      )
+    })
+
+    afterEach(() => {
+      expect(card.element.style.transition).toEqual('all 0.3s ease-out')
+      expect(card.element.style.opacity).toEqual('0')
+    })
+  })
+
+  describe('yay', () => {
+    beforeEach(() => {
+      spyOn(card, 'removeCard')
+    })
+
+    it('should call removeCard with ev', () => {
+      let ev = faker.random.objectElement()
+
+      card.yay(ev)
+
+      expect(card.removeCard).toHaveBeenCalledWith(ev)
+    })
+  })
+
+  describe('nay', () => {
+    beforeEach(() => {
+      spyOn(card, 'removeCard')
+    })
+
+    it('should call removeCard with ev', () => {
+      let ev = faker.random.objectElement()
+
+      card.nay(ev)
+
+      expect(card.removeCard).toHaveBeenCalledWith(ev)
     })
   })
 

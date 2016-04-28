@@ -58,20 +58,39 @@ export class Card {
 
     // Use delta to decide if card is yay'd or nay'd
     if (ev.deltaX >= window.innerWidth / 3) {
-      this.yay()
+      this.yay(ev)
     } else if (ev.deltaX <= -window.innerWidth / 3) {
-      this.nay()
+      this.nay(ev)
     }
   }
 
+  // Card is removed from the stack
+  removeCard(ev: HammerInput) {
+    if (Math.abs(ev.velocityX) < 1) {
+      var endpoint = window.innerWidth
+    } else {
+      var endpoint = window.innerWidth * ev.velocityX
+    }
+
+    let rotation = 30 * ev.velocityX
+    let transform =
+      `translate3d(${endpoint}px, 0, 0)` +
+      `rotate(${rotation}deg)` +
+      `${this.calcScale()}`
+
+    this.element.style.transition = 'all 0.3s ease-out'
+    this.element.style.opacity = '0'
+    this.element.style.transform = transform
+  }
+
   // The user likes this place
-  yay() {
-    console.log('yay')
+  yay(ev: HammerInput) {
+    this.removeCard(ev)
   }
 
   // The user dislikes this place
-  nay() {
-    console.log('nay')
+  nay(ev: HammerInput) {
+    this.removeCard(ev)
   }
 
   // Calculate the 3d scale based on index
