@@ -8,7 +8,10 @@ var card
 
 describe('Card', () => {
   beforeEach(() => {
-    let nativeElement = {addEventListener() {return}}
+    let nativeElement = {
+      addEventListener() {return},
+      style: {transition: '', transform: ''}
+    }
     let element = {nativeElement: nativeElement}
     card = new Card(element)
   })
@@ -106,19 +109,107 @@ describe('Card', () => {
     `)
   })
 
-  it('releaseCard should set element style properties', () => {
-    let calcScale = faker.random.number()
-    let element = {nativeElement: {style: {transition: '', transform: ''}}}
-    spyOn(card, 'calcScale').and.returnValue(calcScale)
+  describe('releaseCard', () => {
+    it('should set element style properties', () => {
+      let calcScale = faker.random.number()
+      let ev = {deltaX: 0}
+      spyOn(card, 'calcScale').and.returnValue(calcScale)
 
-    card.constructor(element)
-    card.releaseCard()
+      card.releaseCard(ev)
 
-    expect(card.element.style.transition).toEqual('all 1s')
-    expect(card.element.style.transform).toEqual(`
-      translate3d(0px, 0, 0)
-      ${calcScale}
-    `)
+      expect(card.element.style.transition).toEqual('all 1s')
+      expect(card.element.style.transform).toEqual(
+        `translate3d(0px, 0, 0) ${calcScale}`
+      )
+    })
+
+    it('should call yay if the user likes this place', () => {
+      spyOn(card, 'yay')
+      let ev = {deltaX: window.innerWidth / 3}
+
+      card.releaseCard(ev)
+
+      expect(card.yay).toHaveBeenCalledWith(ev)
+    })
+
+    it('should call nay if the user dislikes this place', () => {
+      spyOn(card, 'nay')
+      let ev = {deltaX: -window.innerWidth / 3}
+
+      card.releaseCard(ev)
+
+      expect(card.nay).toHaveBeenCalledWith(ev)
+    })
+  })
+
+  describe('removeCard', () => {
+    var calcScale
+
+    beforeEach(() => {
+      calcScale = faker.random.number()
+      spyOn(card, 'calcScale').and.returnValue(calcScale)
+    })
+
+    it('should animate out', () => {
+      let ev = {velocityX: faker.random.number()}
+      let endpoint = window.innerWidth * ev.velocityX
+      let rotation = 30 * ev.velocityX
+
+      card.removeCard(ev)
+
+      expect(card.element.style.transform).toEqual(
+        `translate3d(${endpoint}px, 0, 0)` +
+        `rotate(${rotation}deg)` +
+        `${calcScale}`
+      )
+    })
+
+    it('should animate to the window edge at minimum', () => {
+      let ev = {velocityX: 1 / faker.random.number()}
+      let endpoint = window.innerWidth
+      let rotation = 30 * ev.velocityX
+
+      card.removeCard(ev)
+
+      expect(card.element.style.transform).toEqual(
+        `translate3d(${endpoint}px, 0, 0)` +
+        `rotate(${rotation}deg)` +
+        `${calcScale}`
+      )
+    })
+
+    afterEach(() => {
+      expect(card.element.style.transition).toEqual('all 0.3s ease-out')
+      expect(card.element.style.opacity).toEqual('0')
+    })
+  })
+
+  describe('yay', () => {
+    beforeEach(() => {
+      spyOn(card, 'removeCard')
+    })
+
+    it('should call removeCard with ev', () => {
+      let ev = faker.random.objectElement()
+
+      card.yay(ev)
+
+      expect(card.removeCard).toHaveBeenCalledWith(ev)
+    })
+  })
+
+  describe('nay', () => {
+    beforeEach(() => {
+      spyOn(card, 'removeCard')
+    })
+
+    it('should call removeCard with ev', () => {
+      let ev = faker.random.objectElement()
+
+      card.nay(ev)
+
+      expect(card.removeCard).toHaveBeenCalledWith(ev)
+    })
   })
 
   it('calcScale should calculate the 3d scale based on index', () => {
